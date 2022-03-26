@@ -5,7 +5,9 @@ const cors = require('cors');
 const {Server} = require('socket.io'); 
 
 app.use(cors()); 
-
+app.get('/', (req, res)=>{
+    res.send('This is the backend for the competitive wordle app, access at: https://xxxx')
+})
 
 const server = http.createServer(app); 
 const io = new Server(server, {
