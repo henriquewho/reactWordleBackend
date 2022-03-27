@@ -59,6 +59,10 @@ io.on("connection", (socket) => {
         socket.to(data.room).emit("wonGame", data)
     })
 
+    socket.on("drewGame", data => {
+        socket.to(data.room).emit("drewGame", data)
+    })
+
     // whenever someone disconnects
     socket.on("disconnect", ()=>{
         console.log("socket.id disconnected: ", socket.id);
