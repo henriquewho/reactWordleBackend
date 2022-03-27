@@ -13,7 +13,8 @@ const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
         // origin (frontend in this case) and methods that the socket.io should accept
-        origin: "http://localhost:3000", 
+        //origin: "http://localhost:3000", 
+        origins: ["https://henriquewho.github.io/reactWordle", "http://localhost:3000"],
         methods: ["GET", "POST"]
     }
 }); 
