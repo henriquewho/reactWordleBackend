@@ -19,7 +19,6 @@ const io = new Server(server, {
     }
 }); 
 
-
 // socket.io event listener for a connection
 io.on("connection", (socket) => {
     // whenever someone connects
