@@ -19,21 +19,42 @@ const io = new Server(server, {
     }
 }); 
 
+
 // socket.io event listener for a connection
 io.on("connection", (socket) => {
     // whenever someone connects
-    console.log("socket.id connected: ", socket.id); 
+    //console.log("socket.id connected: ", socket.id); 
 
     // user creates or join a room
     socket.on("join", (data)=>{
-        socket.join(data.room); 
-        console.log("join with id: ", socket.id, " room: ", data.room);
+
+        let users = io.sockets.adapter.rooms.get(data.room);
+        if (!users) {
+            // first player to join
+            socket.join(data.room); 
+            console.log("join with id: ", socket.id, " room: ", data.room);
+        }
+        else if (users.size<2) {
+            // second player to join
+            socket.join(data.room); 
+            socket.to(data.room).emit("receiveOtherPlayer", {msg: "second player joined"})
+            console.log("join with id: ", socket.id, " room: ", data.room);
+        } else {
+            // cant connect, two users already in the room
+            socket.to(data.room).emit("receiveOtherPlayer", {msg: "cant connect"})
+            console.log('cant connect, two users already in the room')
+        }
     })
     
     // a message is sent to the backend
     socket.on("send", (data)=> {
         console.log("send data: ", data);
         socket.to(data.room).emit("receive", data)
+    })
+
+    socket.on("sendWord", (data)=> {
+        console.log("send data: ", data);
+        socket.to(data.room).emit("receiveWord", data)
     })
 
     // whenever someone disconnects
@@ -43,7 +64,7 @@ io.on("connection", (socket) => {
 });
 
 
-const PORT = process.env.PORT || 3001; 
+const PORT = process.env.PORT || 3004; 
 server.listen(PORT, () => {
     console.log('Server running on port: ', PORT)
 });
