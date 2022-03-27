@@ -14,15 +14,14 @@ const io = new Server(server, {
     cors: {
         // origin (frontend in this case) and methods that the socket.io should accept
         //origin: "http://localhost:3000", 
-        origins: ["https://henriquewho.github.io/reactWordle", "http://localhost:3000"],
+        origins: ["https://henriquewho.github.io/reactWordle", "http://localhost:3000", 
+        "http://localhost:3001", "http://localhost:3002", "http://localhost:3003"],
         methods: ["GET", "POST"]
     }
 }); 
 
 // socket.io event listener for a connection
 io.on("connection", (socket) => {
-    // whenever someone connects
-    //console.log("socket.id connected: ", socket.id); 
 
     // user creates or join a room
     socket.on("join", (data)=>{
@@ -54,6 +53,10 @@ io.on("connection", (socket) => {
     socket.on("sendWord", (data)=> {
         console.log("send data: ", data);
         socket.to(data.room).emit("receiveWord", data)
+    })
+
+    socket.on("wonGame", data => {
+        socket.to(data.room).emit("wonGame", data)
     })
 
     // whenever someone disconnects
