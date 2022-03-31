@@ -1,6 +1,7 @@
 # React "Competitive" Wordle clone - Backend
 
-Link: [https://henriquewho.github.io/reactWordle/](https://henriquewho.github.io/reactWordle/)
+Link to the application: [https://henriquewho.github.io/reactWordle/](https://henriquewho.github.io/reactWordle/)
+Frontend code: [https://github.com/henriquewho/reactWordle](https://github.com/henriquewho/reactWordle)
 
 ## Status
 
