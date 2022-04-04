@@ -43,7 +43,18 @@ io.on("connection", (socket) => {
             console.log('cant connect, two users already in the room')
         }
     })
-    
+
+    socket.on('setCorrectWord', (data)=>{
+        socket.to(data.room).emit('setCorrectWord', data);  
+    })
+
+    // whenever someone disconnects
+    socket.on("disconnect", ()=>{
+        console.log("socket.id disconnected: ", socket.id);
+    }); 
+
+
+    /* 
     // a message is sent to the backend
     socket.on("send", (data)=> {
         console.log("send data: ", data);
@@ -67,10 +78,9 @@ io.on("connection", (socket) => {
         socket.to(data.room).emit("update", data)
     })
 
-    // whenever someone disconnects
-    socket.on("disconnect", ()=>{
-        console.log("socket.id disconnected: ", socket.id);
-    }); 
+    */
+
+    
 });
 
 
