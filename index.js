@@ -35,7 +35,7 @@ io.on("connection", (socket) => {
         else if (users.size<2) {
             // second player to join
             socket.join(data.room); 
-            socket.to(data.room).emit("receiveOtherPlayer", {msg: "second player joined"})
+            socket.to(data.room).emit("receiveOtherPlayer", data)
             console.log("join with id: ", socket.id, " room: ", data.room);
         } else {
             // cant connect, two users already in the room
