@@ -44,6 +44,8 @@ io.on("connection", (socket) => {
         }
     })
 
+    /* When player2 connects, he should receive the correct word from player1
+    */
     socket.on('setCorrectWord', (data)=>{
         socket.to(data.room).emit('setCorrectWord', data);  
     })
@@ -52,6 +54,14 @@ io.on("connection", (socket) => {
     socket.on("disconnect", ()=>{
         console.log("socket.id disconnected: ", socket.id);
     }); 
+
+    /* The turn player will send the update-attempt to the server. The other player then 
+    will receive the receive-update-attempt to increase the generalAttempt at his side
+    */
+    socket.on('update-attempt', data => {
+        console.log('update-attempt: ', data)
+        socket.to(data.room).emit('receive-update-attempt', data); 
+    })
 
 
     /* 
