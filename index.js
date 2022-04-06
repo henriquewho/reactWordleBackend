@@ -63,6 +63,10 @@ io.on("connection", (socket) => {
         socket.to(data.room).emit('receive-update-attempt', data); 
     })
 
+    socket.on('wonGame', data => {
+        socket.to(data.room).emit('wonGame', data); 
+    })
+
 
     /* 
     // a message is sent to the backend
