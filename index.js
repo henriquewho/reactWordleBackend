@@ -63,6 +63,7 @@ io.on("connection", (socket) => {
         socket.to(data.room).emit('receive-update-attempt', data); 
     })
 
+    /* The player who've lost the game should be notified */
     socket.on('wonGame', data => {
         socket.to(data.room).emit('wonGame', data); 
     })
